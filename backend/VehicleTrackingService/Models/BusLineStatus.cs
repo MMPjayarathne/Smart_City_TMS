@@ -7,7 +7,10 @@ namespace VehicleTrackingService.Models
 {
     public class BusLineStatus
     {
+      
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long generatedId {get; set;}
         public string id { get; set; }
         public string name { get; set; }
         public string modeName { get; set; }
@@ -23,6 +26,8 @@ namespace VehicleTrackingService.Models
     public class LineStatus
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long generatedId {get; set;}
         public int id { get; set; }
         public int statusSeverity { get; set; }
         public string statusSeverityDescription { get; set; }
