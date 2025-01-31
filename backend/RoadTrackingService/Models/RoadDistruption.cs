@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RoadTrackingService.Models{
+namespace RoadTrackingService.Models
+{
     public class RoadDisruption
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long generatedId {get; set;}[Key]
+        public long generatedId {get; set;}
         public string id { get; set; }
         
         public string url { get; set; }
@@ -44,7 +45,9 @@ namespace RoadTrackingService.Models{
 
     public class Geography
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long generatedId {get; set;}
         public string type { get; set; }
         public List<double> coordinates { get; set; }
         
@@ -53,6 +56,9 @@ namespace RoadTrackingService.Models{
 
     public class Crs
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long generatedId {get; set;}
         public string type { get; set; }
         
         public Dictionary<string, string> properties { get; set; }

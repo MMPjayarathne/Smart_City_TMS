@@ -14,11 +14,15 @@ namespace RoadTrackingService.Data
         public DbSet<Disruption> Disruptions { get; set; }
         public DbSet<ValidityPeriod> ValidityPeriods { get; set; }
 
+        public DbSet<RoadDisruption> RoadDisruptions { get; set; }
+        public DbSet<Geography> Geography { get; set; }
+        public DbSet<Crs> Crs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
-             modelBuilder.Entity<Disruption>(entity =>
+            modelBuilder.Entity<Disruption>(entity =>
             {
                 entity.HasKey(e => e.id);
                 entity.Property(e => e.id).ValueGeneratedNever();
@@ -34,6 +38,26 @@ namespace RoadTrackingService.Data
                         v => string.Join(",", v),  // Convert List<string> to comma-separated string
                         v => v.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());  // Convert comma-separated string back to List<string>
             });
+
+            modelBuilder.Entity<RoadDisruption>(entity =>
+            {
+                entity.HasKey(e => e.generatedId);
+                entity.Property(e => e.generatedId).ValueGeneratedNever();
+
+                
+                entity.Property(e => e.corridorIds)
+                    .HasConversion(
+                        v => string.Join(",", v),  
+                        v => v.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList()); 
+
+            });
+
+             modelBuilder.Entity<Crs>()
+                .Property(c => c.properties)
+                .HasConversion(
+                    v => v.ContainsKey("name") ? v["name"] : null,  // Convert Dictionary to string (store only "name")
+                    v => new Dictionary<string, string> { { "name", v } }  // Convert back to Dictionary when loading
+                );
         }
     }
 }
