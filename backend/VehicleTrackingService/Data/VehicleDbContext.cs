@@ -8,7 +8,7 @@ namespace VehicleTrackingService.Data
         public VehicleDbContext(DbContextOptions<VehicleDbContext> options) : base(options) {}
 
         // public DbSet<VehicleLocation> VehicleLocations { get; set; }
-        public DbSet<BusLineStatus> VehicleLocations { get; set; }
+        public DbSet<BusLineStatus> BusLineStatus { get; set; }
         public DbSet<LineStatus> LineStatuses { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<Disruption> Disruptions { get; set; }

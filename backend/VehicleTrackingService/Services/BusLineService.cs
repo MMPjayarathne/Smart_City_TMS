@@ -27,7 +27,7 @@ namespace VehicleTrackingService.Services
 
                     if(busLineStatuses.Count > 0){
 
-                        await dbContext.VehicleLocations.AddRangeAsync(busLineStatuses);
+                        await dbContext.BusLineStatus.AddRangeAsync(busLineStatuses);
                         await dbContext.SaveChangesAsync();
                         await kafkaProducer.sendMessageAsync(busLineStatuses);
                     }
