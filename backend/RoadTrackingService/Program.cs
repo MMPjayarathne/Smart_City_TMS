@@ -1,18 +1,18 @@
-using VehicleTrackingService.Data;
-using VehicleTrackingService.Services;
+using RoadTrackingService.Data;
+using RoadTrackingService.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<VehicleDbContext>(options =>
+builder.Services.AddDbContext<RoadDbContext>(options =>
     options.UseMySQL(connectionString)); 
 
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<VehicleDbContext>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<RoadDbContext>();
     dbContext.Database.EnsureCreated(); 
 }
 

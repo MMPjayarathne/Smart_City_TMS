@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using VehicleTrackingService.Models;
+using RoadTrackingService.Models;
 
-namespace VehicleTrackingService.Data
+namespace RoadTrackingService.Data
 {
-    public class VehicleDbContext : DbContext
+    public class RoadDbContext : DbContext
     {
-        public VehicleDbContext(DbContextOptions<VehicleDbContext> options) : base(options) {}
+        public RoadDbContext(DbContextOptions<RoadDbContext> options) : base(options) {}
 
         // public DbSet<VehicleLocation> VehicleLocations { get; set; }
         public DbSet<BusLineStatus> BusLineStatus { get; set; }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using VehicleTrackingService.Logger;
-using VehicleTrackingService.Models;
+using RoadTrackingService.Logger;
+using RoadTrackingService.Models;
 
-namespace VehicleTrackingService.Services
+namespace RoadTrackingService.Services
 {
     public class TfLApiService
     {

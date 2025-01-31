@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-namespace VehicleTrackingService.Logger
+namespace RoadTrackingService.Logger
 {
     public class LoggerService{
 

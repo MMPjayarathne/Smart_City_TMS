@@ -1,9 +1,9 @@
 
 
-using VehicleTrackingService.Data;
-using VehicleTrackingService.Models;
+using RoadTrackingService.Data;
+using RoadTrackingService.Models;
 
-namespace VehicleTrackingService.Services
+namespace RoadTrackingService.Services
 {
     public class BusLineService : BackgroundService
     {
@@ -19,7 +19,7 @@ namespace VehicleTrackingService.Services
         {
             while (!stoppingToken.IsCancellationRequested){
                 using (var scope = _serviceProvider.CreateScope()){
-                    var dbContext = scope.ServiceProvider.GetRequiredService<VehicleDbContext>();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<RoadDbContext>();
                     var tflService = scope.ServiceProvider.GetRequiredService<TfLApiService>();
                     var kafkaProducer = scope.ServiceProvider.GetRequiredService<KafkaProducerService>();
 

@@ -1,0 +1,6 @@
+@RoadTrackingService_HostAddress = http://localhost:5201
+
+GET {{RoadTrackingService_HostAddress}}/roadTracking/
+Accept: application/json
+
+###
