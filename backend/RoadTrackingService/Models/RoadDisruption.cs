@@ -10,7 +10,6 @@ namespace RoadTrackingService.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long generatedId {get; set;}
         public string id { get; set; }
         
         public string url { get; set; }

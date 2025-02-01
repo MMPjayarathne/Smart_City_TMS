@@ -31,6 +31,7 @@ namespace RoadTrackingService.Models
         public int id { get; set; }
         public int statusSeverity { get; set; }
         public string statusSeverityDescription { get; set; }
+        public string reason {get;set;}
         public DateTime created { get; set; }
         public List<ValidityPeriod> validityPeriods { get; set; }
     }
@@ -64,8 +65,8 @@ namespace RoadTrackingService.Models
 
     public class ValidityPeriod
     {
-         [Key]
-         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long id {get;set;}
         public DateTime fromDate { get; set; }
         public DateTime toDate { get; set; }
