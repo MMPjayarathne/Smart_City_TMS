@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -20,64 +21,82 @@ namespace RoadTrackingService.Services
 
         public async Task<List<BusLineStatus>> FetchLiveBusLineStatusAsync()
         {
-            string url = "https://api.tfl.gov.uk/line/mode/bus/status"; // TfL API Endpoint for Bus locations
+            string url = "https://api.tfl.gov.uk/line/mode/bus/status"; 
+            var busLineStatuses = await FetchApiData<List<BusLineStatus>>(url);
 
+            if (busLineStatuses == null || !busLineStatuses.Any())
+            {
+                _logger.LogWarning("No active bus line statuses found!");
+                return new List<BusLineStatus>();
+            }
+
+            return busLineStatuses
+                .Where(busLineState => busLineState.lineStatuses
+                    .Any(lineState => lineState.validityPeriods
+                        .Any(validityPeriod => validityPeriod.isNow)))
+                .ToList();
+        }
+
+        public async Task<List<RoadDisruption>> FetchRoadDisruptionsAsync()
+        {
+            string disruptionUrl = "https://api.tfl.gov.uk/road/a1/disruption"; 
+            var disruptions = await FetchApiData<List<RoadDisruption>>(disruptionUrl);
+            
+            if (disruptions == null || !disruptions.Any())
+            {
+                _logger.LogWarning("No roads found!");
+                return new List<RoadDisruption>();
+            }
+
+        
+            return disruptions;
+        }
+
+
+        public async Task<List<Road>> FetchRoadDetailsAsync()
+        {
+            string url = "https://api.tfl.gov.uk/road";
+            var roadDetails = await FetchApiData<List<Road>>(url);
+
+            if (roadDetails == null || !roadDetails.Any())
+            {
+                _logger.LogWarning("No road details available!");
+                return new List<Road>();
+            }
+
+            return roadDetails;
+        }
+
+        // public string DisruptionDescriptionBuilder(List<Disruption> disruptions)
+        // {
+        //     if (disruptions == null || !disruptions.Any())
+        //     {
+        //         return "No active disruptions.";
+        //     }
+
+        //     return string.Join(" | ", disruptions
+        //         .Where(d => !string.IsNullOrEmpty(d.description))
+        //         .Select(d => d.description));
+        // }
+
+        private async Task<T> FetchApiData<T>(string url)
+        {
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Error fetching TfL data: {response.StatusCode}");
+                _logger.LogError($"Error fetching data from {url}: {response.StatusCode}");
+                return default;
             }
 
             string responseBody = await response.Content.ReadAsStringAsync();
-            var busLineStatuses = JsonSerializer.Deserialize<List<BusLineStatus>>(responseBody);
-            if(busLineStatuses == null){
-                _logger.LogWarning("Vehicles are Empty!");
-            }
+            var data = JsonSerializer.Deserialize<T>(responseBody);
 
-            // var vehicleLocations = new List<VehicleLocation>();
-            // _logger.LogInformation($"The vehicle list: {string.Join(", ", vehicleLocations.Select(v => v.ToString()))}");
-            
-            // foreach (var vehicle in vehicles)
-            
-            // {
-            //     vehicleLocations.Add(new VehicleLocation
-            //     {
-            //         VehicleId = vehicle.Id,
-            //         LineName = vehicle.LineName,
-            //         Latitude = vehicle.Latitude,
-            //         Longitude = vehicle.Longitude,
-            //         DisruptionDescription = DisruptionDescriptionBuilder(vehicle.Disruptions),
-            //         Speed = vehicle.Speed,
-            //         Timestamp = DateTime.UtcNow
-            //     });
-            // }
-
-            return busLineStatuses;
-        }
-
-       public string DisruptionDescriptionBuilder(List<Disruption> disruptions)
-        {
-            // Initialize a list to store disruption descriptions
-            List<string> disruptionDescriptions = new List<string>();
-
-            // Loop through the disruptions and collect disruption descriptions
-            foreach (var disruption in disruptions)
+            if (data == null)
             {
-                if (!string.IsNullOrEmpty(disruption.description))
-                {
-                    disruptionDescriptions.Add(disruption.description);
-                }
+                _logger.LogWarning($"No data found for {url}");
             }
 
-            // Concatenate the disruption descriptions with colon separators
-            var result = string.Join(":", disruptionDescriptions);
-
-            return result;
+            return data;
         }
-
-
-
     }
-
-
 }
