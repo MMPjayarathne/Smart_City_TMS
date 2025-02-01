@@ -44,7 +44,7 @@ namespace RoadTrackingService.Services
             
             if (disruptions == null || !disruptions.Any())
             {
-                _logger.LogWarning("No roads found!");
+                _logger.LogWarning("No disruptions found!");
                 return new List<RoadDisruption>();
             }
 
