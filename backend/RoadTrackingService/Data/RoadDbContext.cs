@@ -18,6 +18,8 @@ namespace RoadTrackingService.Data
         public DbSet<Geography> Geography { get; set; }
         public DbSet<Crs> Crs { get; set; }
 
+        public DbSet<Road> Roads { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -41,8 +43,8 @@ namespace RoadTrackingService.Data
 
             modelBuilder.Entity<RoadDisruption>(entity =>
             {
-                entity.HasKey(e => e.generatedId);
-                entity.Property(e => e.generatedId).ValueGeneratedNever();
+                entity.HasKey(e => e.id);
+                entity.Property(e => e.id).ValueGeneratedNever();
 
                 
                 entity.Property(e => e.corridorIds)
