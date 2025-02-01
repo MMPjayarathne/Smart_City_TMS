@@ -1,2 +1,5 @@
 /backend/RoadTrackingService/bin
 /backend/RoadTrackingService/obj
+
+/backend/WebSocketService/bin
+/backend/WebSocketService/obj
