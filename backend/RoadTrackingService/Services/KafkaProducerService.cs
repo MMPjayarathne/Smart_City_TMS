@@ -17,12 +17,12 @@ namespace RoadTrackingService.Services
             };
             _producer = new ProducerBuilder<Null, string>(config).Build();
         }
-        public async Task sendMessageAsync(List<BusLineStatus> busLineStatusesList)
+        public async Task sendMessageAsync<T>(string topic, List<T> listItems)
         {
-            foreach(var busLineStatuses in busLineStatusesList){
-                var message = JsonConvert.SerializeObject(busLineStatuses);
-                await _producer.ProduceAsync("bus-line-status",new Message<Null, string> {Value = message});
-                _logger.LogInformation("Pushed message to the bus-line-status");
+            foreach(var listItem in listItems){
+                var message = JsonConvert.SerializeObject(listItem);
+                await _producer.ProduceAsync(topic,new Message<Null, string> {Value = message});
+                _logger.LogInformation($"Pushed message to the topic {topic}");
 
             }
         }
