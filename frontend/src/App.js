@@ -3,9 +3,10 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import { IconButton } from '@mui/material';
-import { Analytics, Brightness4, Brightness7 } from '@mui/icons-material';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import Sidebar from './components/Sidebar';
 import Reports from './pages/Reports';
+import Analytics from './pages/Analytics';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -48,8 +49,8 @@ function App() {
         <Sidebar isOpen={isSidebarOpen} onToggle={handleSidebarToggle} />
         <Routes>
           <Route path="/" element={ <Dashboard isSidebarOpen={isSidebarOpen} />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/reports" element={<Reports />} />
+          <Route path="/analytics" element={<Analytics isSidebarOpen={isSidebarOpen} />} />
+          <Route path="/reports" element={<Reports  isSidebarOpen={isSidebarOpen} />} />
         </Routes>
       </Router>
     </ThemeProvider>

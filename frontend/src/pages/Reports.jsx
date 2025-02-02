@@ -8,12 +8,22 @@ import BarPieChart from '../components/BarPieChart';
 import DataTable from '../components/DataTable';
 
 
-const Reports = () => {
-  const theme = useTheme()
+const Reports = ({ isSidebarOpen }) => {
 
+  console.log("is sidebar open",isSidebarOpen)
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Container sx={{ flexGrow: 1, paddingTop: '20px' }}>
+    <Box sx={{ display: 'flex', transition: 'margin 0.3s ease-in-out' }}>
+      <Container
+        sx={{
+          flexGrow: 1,
+          paddingTop: '20px',
+          marginLeft: isSidebarOpen ? '370px' : '300px', // Adjust margin based on sidebar state
+          transition: 'margin 0.3s ease-in-out',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: isSidebarOpen ? 'flex-start' : 'center', // Align content to the left when sidebar is open
+        }}
+      >
         <Grid container spacing={3}>      
             <DataTable/>
         </Grid>

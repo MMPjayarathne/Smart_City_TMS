@@ -19,5 +19,7 @@ body {
   
   .MuiListItemText-root {
     color: white;
+    margin-right: 20px;
+
   }
   
