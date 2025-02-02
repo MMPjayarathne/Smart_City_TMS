@@ -1,0 +1,23 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color:rgb(255, 255, 255);
+  }
+  
+  h1, h2, h3 {
+    font-weight: 500;
+    font-color:rgb(0, 0, 0);
+  }
+  
+  .MuiPaper-root {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .MuiDrawer-root {
+    background-color: #333;
+  }
+  
+  .MuiListItemText-root {
+    color: white;
+  }
+  
