@@ -10,15 +10,16 @@ const TotalCards = () => {
     { label: 'Total Users', value: 1500, icon: <AccessibilityNew /> },
     { label: 'Total Sales', value: 1200, icon: <TrendingUp /> },
     { label: 'Total Revenue', value: '$15,000', icon: <AttachMoney /> },
+    { label: 'Total Revenue', value: '$15,000', icon: <AttachMoney /> },
   ];
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Box sx={{ padding: 3 }}>
-            <Grid container spacing={3} justifyContent="center">
+            <Box sx={{ width: '100%', paddingTop: 2, paddingBottom:2 }}>
+            <Grid container spacing={2} justifyContent="center">
                 {data.map((item, index) => (
-                <Grid item xs={12} sm={4} key={index}>
+                <Grid item xs={12} sm={3} key={index}>
                     <Card sx={{ height: '100%', backgroundColor: theme.palette.background.paper, boxShadow: 3 }}>
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

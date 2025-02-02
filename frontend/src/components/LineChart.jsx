@@ -52,7 +52,7 @@ const LineChart = () => {
     };
   
     return (
-        <Container sx={{ flexGrow: 1, paddingTop: '20px' }}>
+        <Box sx={{ width: '100%', paddingTop: 5, paddingBottom:2 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={8}>
               <Paper sx={{ padding: 2 }}>
@@ -67,7 +67,7 @@ const LineChart = () => {
               </Paper>
             </Grid>
           </Grid>
-        </Container>
+        </Box>
     );
   };
   

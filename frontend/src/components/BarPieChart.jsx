@@ -82,6 +82,9 @@ const BarPieChart = () => {
           <Paper sx={{ padding: 2, backgroundColor: theme.palette.background.paper }}>
             <Bar data={barData} options={{ ...options, plugins: { ...options.plugins, title: { ...options.plugins.title, text: 'Monthly Sales' } } }} />
           </Paper>
+          <Paper sx={{ marginTop:2, backgroundColor: theme.palette.background.paper }}>
+            <Bar data={barData} options={{ ...options, plugins: { ...options.plugins, title: { ...options.plugins.title, text: 'Monthly Sales' } } }} />
+          </Paper>
         </Grid>
 
         {/* Pie Chart Card */}
