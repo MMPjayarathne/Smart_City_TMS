@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Text;
@@ -6,30 +5,46 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using WebSocketService.Logger;
 
 namespace WebSocketService.Services
 {
     public class WebSocketsService
     {
-        private readonly List<WebSocket> _clients = new List<WebSocket>();
+        private readonly Dictionary<string, List<WebSocket>> _topicClients = new Dictionary<string, List<WebSocket>>();
+        private static readonly ILogger _logger = LoggerService.GetLogger();
 
-        public async Task HandleWebSocket(HttpContext context, WebSocket webSocket)
+        public async Task HandleWebSocket(HttpContext context, WebSocket webSocket, string topic)
         {
-            _clients.Add(webSocket);
+            if (!_topicClients.ContainsKey(topic))
+            {
+                _topicClients[topic] = new List<WebSocket>();
+            }
+
+            _topicClients[topic].Add(webSocket);
+
             while (webSocket.State == WebSocketState.Open)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1000); // Wait for data
             }
-            _clients.Remove(webSocket);
+
+            _topicClients[topic].Remove(webSocket);
         }
 
-        public async Task BroadcastUpdateAsync(object update)
+        public async Task BroadcastUpdateAsync(string topic, object update)
         {
+            if (!_topicClients.ContainsKey(topic))
+            {
+                return; // No clients for this topic
+            }
+
             string message = JsonSerializer.Serialize(update);
+
+            _logger.LogInformation($"Broadcasting update to {topic} clients");
             var buffer = Encoding.UTF8.GetBytes(message);
             var segment = new ArraySegment<byte>(buffer);
 
-            foreach (var client in _clients)
+            foreach (var client in _topicClients[topic])
             {
                 if (client.State == WebSocketState.Open)
                 {

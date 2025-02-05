@@ -15,13 +15,41 @@ namespace WebSocketService.Controllers
             _webSocketsService = webSocketsService;
         }
 
-        [HttpGet("live-updates")]
-        public async Task Get()
+        [HttpGet("live-busline-updates")]
+        public async Task GetBusLine()
         {
             if (HttpContext.WebSockets.IsWebSocketRequest)
             {
                 using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-                await _webSocketsService.HandleWebSocket(HttpContext, webSocket);
+                await _webSocketsService.HandleWebSocket(HttpContext, webSocket, "bus-line-status");
+            }
+            else
+            {
+                HttpContext.Response.StatusCode = 400;
+            }
+        }
+
+        [HttpGet("live-road-distruptions")]
+        public async Task GetRoadDisruptions()
+        {
+            if (HttpContext.WebSockets.IsWebSocketRequest)
+            {
+                using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+                await _webSocketsService.HandleWebSocket(HttpContext, webSocket, "road-distruptions");
+            }
+            else
+            {
+                HttpContext.Response.StatusCode = 400;
+            }
+        }
+
+        [HttpGet("live-road-details")]
+        public async Task GetRoadDetails()
+        {
+            if (HttpContext.WebSockets.IsWebSocketRequest)
+            {
+                using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+                await _webSocketsService.HandleWebSocket(HttpContext, webSocket, "road-details");
             }
             else
             {

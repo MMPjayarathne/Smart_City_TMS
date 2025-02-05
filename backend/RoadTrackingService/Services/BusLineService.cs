@@ -29,7 +29,7 @@ namespace RoadTrackingService.Services
                     var busLineStatuses  = await tflService.FetchLiveBusLineStatusAsync();
                     var disruptions = await tflService.FetchRoadDisruptionsAsync();
                     var roadDetails = await tflService.FetchRoadDetailsAsync();
-
+                    _logger.LogInformation($"Fetched {busLineStatuses.Count} bus line statuses, {disruptions.Count} disruptions, and {roadDetails.Count} road details.");
                     if(busLineStatuses.Count > 0){
                         try{
 
