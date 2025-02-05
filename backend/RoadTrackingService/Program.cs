@@ -7,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<RoadDbContext>(options =>
-    options.UseMySQL(connectionString)); 
+    options.UseMySQL(connectionString)
+    .EnableSensitiveDataLogging(false)
+            .LogTo(_ => { }, LogLevel.Warning)); 
 
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
