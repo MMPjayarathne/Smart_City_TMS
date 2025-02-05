@@ -2,7 +2,7 @@ import React from 'react';
 import { Drawer, List, ListItem, ListItemText, Divider, Box, IconButton, ListItemIcon } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { Dashboard, Analytics, BarChart, ChevronLeft, ChevronRight } from '@mui/icons-material';
-import logo from '../assets/logo.png'
+import logo from '../assets/Smart_City-Logo.png'
 const Sidebar = ({ isOpen, onToggle }) => {
   const location = useLocation();
 
@@ -28,6 +28,12 @@ const Sidebar = ({ isOpen, onToggle }) => {
             color: 'primary.contrastText',
             overflowX: 'hidden',
           },
+          // position: 'fixed',
+          // left: 0, 
+          // top: 0,
+          // bottom: 0,
+          // height: '100vh',
+          // zIndex: 1300,
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px' }}>
