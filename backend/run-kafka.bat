@@ -15,7 +15,7 @@ REM Start ZooKeeper
 echo Starting ZooKeeper...
 cd /d "%KAFKA_DIR%\bin\windows"
 start zookeeper-server-start.bat "%KAFKA_DIR%\config\zookeeper.properties"
-timeout /t 10
+timeout /t 20
 
 REM Start Kafka
 echo Starting Kafka...
