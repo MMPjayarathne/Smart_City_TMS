@@ -7,6 +7,7 @@ import { Brightness4, Brightness7 } from '@mui/icons-material';
 import Sidebar from './components/Sidebar';
 import Reports from './pages/Reports';
 import Analytics from './pages/Analytics';
+import { WebSocketProvider } from './utils/WebSocketProvider';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -38,22 +39,24 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
-          <IconButton onClick={toggleTheme} color="inherit">
-            {isDarkMode ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
-        </div>
-        <Sidebar isOpen={isSidebarOpen} onToggle={handleSidebarToggle} />
-        <Routes>
-          <Route path="/" element={ <Dashboard isSidebarOpen={isSidebarOpen} />} />
-          <Route path="/analytics" element={<Analytics isSidebarOpen={isSidebarOpen} />} />
-          <Route path="/reports" element={<Reports  isSidebarOpen={isSidebarOpen} />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <WebSocketProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
+            <IconButton onClick={toggleTheme} color="inherit">
+              {isDarkMode ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </div>
+          <Sidebar isOpen={isSidebarOpen} onToggle={handleSidebarToggle} />
+          <Routes>
+            <Route path="/" element={ <Dashboard isSidebarOpen={isSidebarOpen} />} />
+            <Route path="/analytics" element={<Analytics isSidebarOpen={isSidebarOpen} />} />
+            <Route path="/reports" element={<Reports  isSidebarOpen={isSidebarOpen} />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </WebSocketProvider>
   );
 }
 
