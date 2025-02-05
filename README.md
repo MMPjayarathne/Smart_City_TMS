@@ -1,5 +1,3 @@
-![Smart-City_Logo](https://github.com/user-attachments/assets/dfe3b484-c765-4212-82ab-e1f64f9f9e09)
-
 # 🚦 Smart City Traffic Management System (Smart-City-TMS)
 
 ## Overview
@@ -42,6 +40,7 @@ cd frontend
 npm install
 npm start
 ```
+![Smart_City-Logo](https://github.com/user-attachments/assets/58a57d66-f541-4030-b9fb-8e82b6886063)
 
 
 
