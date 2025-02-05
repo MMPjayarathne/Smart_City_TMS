@@ -28,8 +28,8 @@
 
 ### 2️⃣ Clone the Repository
 ```sh
-git clone https://github.com/yourusername/Smart-City-TMS.git
-cd Smart-City-TMS
+git clone https://github.com/MMPjayarathne/Smart_City_TMS.git
+cd Smart_City_TMS
 ---------------Backend----------------
 cd backend
 dotnet restore
