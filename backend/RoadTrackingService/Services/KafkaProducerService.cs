@@ -19,12 +19,11 @@ namespace RoadTrackingService.Services
         }
         public async Task sendMessageAsync<T>(string topic, List<T> listItems)
         {
-            foreach(var listItem in listItems){
-                var message = JsonConvert.SerializeObject(listItem);
-                await _producer.ProduceAsync(topic,new Message<Null, string> {Value = message});
-                _logger.LogInformation($"Pushed message to the topic {topic}");
+            // Serialize the list of items to JSON and sending the Whole list
+            var message = JsonConvert.SerializeObject(listItems);
+            await _producer.ProduceAsync(topic,new Message<Null, string> {Value = message});
+            _logger.LogInformation($"Pushed message to the topic {topic}");
 
-            }
         }
     }
 }
